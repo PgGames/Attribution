@@ -1,0 +1,3 @@
+
+Text Text_Demo_001 = [中文]
+Text Text_Demo_002 = [英文]
