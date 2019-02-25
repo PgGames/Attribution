@@ -1,0 +1,12 @@
+
+//首次提交
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/PgGames/Demo.git
+git push -u origin master
+
+
+//更新提交
+git remote add origin https://github.com/PgGames/Demo.git
+git push -u origin master
