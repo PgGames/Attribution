@@ -261,7 +261,7 @@ namespace Framework.Editor.Tools.Modules
 
             public void Init()
             {
-                ModulePath = Application.dataPath + "/Project Module";
+                ModulePath = "Project Module";
                 ModuleName = null;
                 ModuleTips = null;
             }
