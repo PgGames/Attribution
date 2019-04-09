@@ -1,17 +1,3 @@
-
-#region 版权信息
-/*
- * -----------------------------------------------------------
- *  Copyright (c) KeJun All rights reserved.
- * -----------------------------------------------------------
- *      描述: 
- *      创建者：
- *      创建时间: 2019-04-09 11:33:57
- *  
- */
-#endregion
-
-
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
