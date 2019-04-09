@@ -34,6 +34,7 @@ namespace Framework.UI
             {
                 m_Text.UnregisterDirtyVerticesCallback(ValueUpdata);
             }
+            UpDatePos();
         }
 #if UNITY_EDITOR
         private void OnValidate()
