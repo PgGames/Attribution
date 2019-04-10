@@ -4,6 +4,11 @@ using UnityEngine.UI;
 
 namespace Framework.UI
 {
+    /// <summary>
+    /// 文字背景图片
+    ///     优点：可动态根据文本大小变幻图片大小
+    ///     确定：由于实际大小与RectTransform的大小关系会出现一个字的大小偏差
+    /// </summary>
     [AddComponentMenu("Helper/UI/ImageBG")]
     [RequireComponent(typeof(Image))]
     public class UIImageBG : MonoBehaviour
@@ -78,6 +83,11 @@ namespace Framework.UI
         /// </summary>
         private void UpDateSize()
         {
+            Debug.LogError("Flexible "+ m_Text.flexibleWidth +"<====>"+ m_Text.flexibleHeight);
+            Debug.LogError("main " + m_Text.minWidth + "<====>" + m_Text.minHeight);
+            Debug.LogError("preferred " + m_Text.preferredWidth + "<====>" + m_Text.preferredHeight);
+
+
             float wdith = _Padding.left + _Padding.right;
             float height = _Padding.top + _Padding.bottom;
             if (m_Text.horizontalOverflow == HorizontalWrapMode.Wrap)
@@ -121,9 +131,71 @@ namespace Framework.UI
         /// </summary>
         private void UpDatePos()
         {
-            float x = _Padding.right - _Padding.left;
             float y = _Padding.top - _Padding.bottom;
-            this.transform.localPosition = m_Text.transform.localPosition + new Vector3(x/2, y/2);
+            float x = _Padding.right - _Padding.left;
+            //实际大小
+            Vector2 temp_TextSize = new Vector2(m_Text.preferredWidth, m_Text.preferredHeight);
+            //限制大小
+            Vector2 temp_RectSize = m_Text.rectTransform.rect.size;
+            //横向位置计算
+            if (m_Text.alignment == TextAnchor.UpperLeft || m_Text.alignment == TextAnchor.MiddleLeft || m_Text.alignment == TextAnchor.LowerLeft)
+            {
+                if (temp_TextSize.x <= temp_RectSize.x)
+                {
+                    x += temp_TextSize.x - temp_RectSize.x;
+                }
+                else
+                {
+                    if (m_Text.horizontalOverflow != HorizontalWrapMode.Wrap)
+                    {
+                        x += temp_TextSize.x - temp_RectSize.x;
+                    }
+                }
+            }
+            else if (m_Text.alignment == TextAnchor.LowerRight || m_Text.alignment == TextAnchor.MiddleRight || m_Text.alignment == TextAnchor.UpperRight)
+            {
+                if (temp_TextSize.x <= temp_RectSize.x)
+                {
+                    x -= temp_TextSize.x - temp_RectSize.x;
+                }
+                else
+                {
+                    if (m_Text.horizontalOverflow != HorizontalWrapMode.Wrap)
+                    {
+                        x -= temp_TextSize.x - temp_RectSize.x;
+                    }
+                }
+            }
+            //纵向位置计算
+            if (m_Text.alignment == TextAnchor.LowerLeft || m_Text.alignment == TextAnchor.LowerCenter || m_Text.alignment == TextAnchor.LowerRight)
+            {
+                if (temp_TextSize.y <= temp_RectSize.y)
+                {
+                    y += temp_TextSize.y - temp_RectSize.y;
+                }
+                else
+                {
+                    if (m_Text.verticalOverflow != VerticalWrapMode.Truncate)
+                    {
+                        y += temp_TextSize.y - temp_RectSize.y;
+                    }
+                }
+            }
+            else if (m_Text.alignment == TextAnchor.UpperLeft || m_Text.alignment == TextAnchor.UpperCenter || m_Text.alignment == TextAnchor.UpperRight)
+            {
+                if (temp_TextSize.y <= temp_RectSize.y)
+                {
+                    y -= temp_TextSize.y - temp_RectSize.y;
+                }
+                else
+                {
+                    if (m_Text.verticalOverflow != VerticalWrapMode.Truncate)
+                    {
+                        y -= temp_TextSize.y - temp_RectSize.y;
+                    }
+                }
+            }
+            this.transform.localPosition = m_Text.transform.localPosition + new Vector3(x / 2, y / 2);
         }
 
 

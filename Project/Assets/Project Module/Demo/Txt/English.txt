@@ -1,3 +1,0 @@
-
-Text Text_Demo_001 = [Chinese]
-Text Text_Demo_002 = [English]
